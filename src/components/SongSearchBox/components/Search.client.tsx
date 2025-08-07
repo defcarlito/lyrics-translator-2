@@ -4,13 +4,20 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useState } from "react"
 
-export default function Search({ setSongInfo }: any) {
-  const placeholder: string = "ex. País do Futebol by MC Guimê"
+const PLACEHOLDER: string = "ex. País do Futebol by MC Guimê"
 
+export default function Search({
+  setSongInfo,
+  setLoading,
+}: {
+  setSongInfo: any
+  setLoading: any
+}) {
   const [userInput, setUserInput] = useState<string>("")
 
   const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault()
+    setLoading(true)
 
     const res = await fetch("/api/search", {
       method: "POST",
@@ -20,15 +27,16 @@ export default function Search({ setSongInfo }: any) {
 
     const data = await res.json()
     setSongInfo(data.songs)
+    setLoading(false)
   }
 
   return (
-    <div className="space-y-4">
+    <div className="space-y-8">
       <h1 className="text-4xl">Search for a song...</h1>
-      <form onSubmit={handleSubmit} className="flex gap-4">
+      <form onSubmit={handleSubmit} className="flex gap-1">
         <Input
           name="search"
-          placeholder={placeholder}
+          placeholder={PLACEHOLDER}
           className="min-w-70"
           onChange={(event) => setUserInput(event.target.value)}
         />
