@@ -1,4 +1,4 @@
-import SongSearchBox from "@/components/SongSearchBox/SongSearchBox"
+import SongSearchBox from "@/components/SongSearchBox/SongSearchBox.client"
 
 export default function Home() {
   return (
