@@ -7,14 +7,15 @@ import Search from "./components/Search.client"
 
 export default function SongSearchBox() {
   const [songInfo, setSongInfo] = useState<Song[]>([])
+  const [loading, setLoading] = useState<boolean>(false)
 
   return (
     <div className="space-y-2">
       <div>
-        <Search setSongInfo={setSongInfo} />
+        <Search setSongInfo={setSongInfo} setLoading={setLoading} />
       </div>
-      <div className="items-start border border-black">
-        <Results songInfo={songInfo} />
+      <div>
+        <Results songInfo={songInfo} loading={loading} />
       </div>
     </div>
   )
