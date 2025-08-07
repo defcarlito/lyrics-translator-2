@@ -3,7 +3,7 @@ import { Song } from "@/types/song"
 export default function SongCard({ song }: { song: Song }) {
   return (
     <div
-      className="flex gap-4 hover:bg-accent rounded-md transition"
+      className="flex gap-4 hover:bg-accent rounded-md transition cursor-pointer"
       role="button"
       tabIndex={0}
     >
