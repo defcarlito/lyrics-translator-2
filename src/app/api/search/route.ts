@@ -20,7 +20,7 @@ export async function POST(request: NextRequest) {
   const getTopHits = () => {
     const totalHits: number = data.response.hits.length
 
-    // limit # search results to < RESULT_LIMIT
+    // limit # search results to <= RESULT_LIMIT
     const totalSearchResult: number = Math.min(RESULT_LIMIT, totalHits)
     const topSearchResults: JSON[] = data.response.hits.slice(
       0,
