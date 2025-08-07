@@ -1,12 +1,11 @@
 "use client"
 
-import { useState } from "react"
-import Results from "./search/Results"
-import Search from "./search/Search"
 import { Song } from "@/types/song"
+import { useState } from "react"
+import Results from "./Results"
+import Search from "./Search"
 
 export default function SongSearchBox() {
-
   const [songInfo, setSongInfo] = useState<Song[]>([])
 
   return (
