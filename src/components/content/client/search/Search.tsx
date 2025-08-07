@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { useState } from "react"
 
-export default function Search({setSongInfo}: any) {
+export default function Search({ setSongInfo }: any) {
+  const placeholder: string = "ex. País do Futebol by MC Guimê"
 
   const [userInput, setUserInput] = useState<string>("")
 
@@ -27,7 +28,7 @@ export default function Search({setSongInfo}: any) {
       <form onSubmit={handleSubmit} className="flex gap-4">
         <Input
           name="search"
-          placeholder="ex. País do Futebol by MC Guimê"
+          placeholder={placeholder}
           className="min-w-70"
           onChange={(event) => setUserInput(event.target.value)}
         />
