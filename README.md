@@ -1,3 +1,3 @@
 ## WIP
 
-Current building 🔨
+Currently building 🔨
