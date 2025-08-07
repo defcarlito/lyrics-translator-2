@@ -51,7 +51,7 @@ export async function POST(request: NextRequest) {
       title: songInfo.title,
       artist: songInfo.primary_artist.name,
       featuredArtists: featuredArtistsNames,
-      albumCover: songInfo.header_img_url,
+      albumCover: songInfo.header_image_url,
     }
   })
 
