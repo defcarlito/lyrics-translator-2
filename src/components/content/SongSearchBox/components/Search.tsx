@@ -6,17 +6,22 @@ import { Selection } from "@/types/userChoice"
 import { useCallback, useEffect, useState } from "react"
 
 const PLACEHOLDER: string = "ex. País do Futebol by MC Guimê"
+const SEARCH_DEBOUNCE_DELAY: number = 400 // milliseconds
 
 export default function Search({
   setSongInfo,
   setLoading,
   setUserSelection,
+  userInput,
+  setUserInput,
+  
 }: {
   setSongInfo: Setter<Song[]>
   setLoading: Setter<boolean>
   setUserSelection: Setter<Selection>
+  userInput: string
+  setUserInput: Setter<string>
 }) {
-  const [userInput, setUserInput] = useState<string>("")
 
   const handleSubmit = useCallback(async () => {
     setLoading(true)
@@ -37,11 +42,12 @@ export default function Search({
   const resetSelection: Selection = { song: undefined, hasSelected: false }
 
   return (
-    <div className="space-y-8">
+    <div className="space-y-4">
       <h1 className="text-4xl">Search for a song...</h1>
       <form
         onSubmit={(event) => {
           event.preventDefault()
+          setUserSelection(resetSelection)
           handleSubmit()
         }}
         className="flex gap-1"
@@ -53,6 +59,7 @@ export default function Search({
           onChange={(event) => {
             setUserInput(event.target.value)
             setUserSelection(resetSelection)
+            setLoading(true)
           }}
         />
         <Button type="submit">Search</Button>
@@ -74,7 +81,7 @@ function useSearchDelay(
 
     const timer = setTimeout(() => {
       handleSubmit()
-    }, 400)
+    }, SEARCH_DEBOUNCE_DELAY)
     return () => clearTimeout(timer)
   }, [userInput])
 }
