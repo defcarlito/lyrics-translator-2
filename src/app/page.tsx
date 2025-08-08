@@ -1,9 +1,9 @@
-import SongSearchBox from "@/components/SongSearchBox/SongSearchBox.client"
+import Content from "@/components/content/Content.client"
 
 export default function Home() {
   return (
-    <div className="flex items-center justify-center h-screen w-screen">
-      <SongSearchBox />
+    <div className="flex flex-col items-center justify-center h-screen w-screen">
+      <Content />
     </div>
   )
 }

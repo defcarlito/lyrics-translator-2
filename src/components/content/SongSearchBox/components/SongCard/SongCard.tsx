@@ -1,11 +1,13 @@
+import { Setter } from "@/types/setter"
 import { Song } from "@/types/song"
 
-export default function SongCard({ song }: { song: Song }) {
+export default function SongCard({ song, setSelectedSong }: { song: Song, setSelectedSong: Setter<Song | undefined> }) {
   return (
     <div
       className="flex gap-4 hover:bg-accent rounded-md transition cursor-pointer"
       role="button"
       tabIndex={0}
+      onClick={() => setSelectedSong(song)}
     >
       <div className="shrink-0">
         <img
