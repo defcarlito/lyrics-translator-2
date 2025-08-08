@@ -11,7 +11,7 @@ export default function SongCard({ song }: { song: Song }) {
         <img
           src={song.albumCover}
           alt="cover"
-          className="size-32 rounded-md shadow-sm"
+          className="size-36 rounded-md shadow-sm"
         />
       </div>
       <div className="flex flex-col justify-center items-start gap-1">
