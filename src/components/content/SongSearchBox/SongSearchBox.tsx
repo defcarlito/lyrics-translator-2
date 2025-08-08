@@ -1,14 +1,17 @@
 import { cn } from "@/lib/utils"
 import { Setter } from "@/types/setter"
 import { Song } from "@/types/song"
+import { Selection } from "@/types/userChoice"
 import { useState } from "react"
 import Results from "./components/Results"
 import Search from "./components/Search"
 
 export default function SongSearchBox({
-  setSelectedSong,
+  userSelection,
+  setUserSelection,
 }: {
-  setSelectedSong: Setter<Song | undefined>
+  userSelection: Selection
+  setUserSelection: Setter<Selection>
 }) {
   const [songInfo, setSongInfo] = useState<Song[]>([])
   const [loading, setLoading] = useState<boolean>(false)
@@ -21,14 +24,19 @@ export default function SongSearchBox({
         <Search
           setSongInfo={setSongInfo}
           setLoading={setLoading}
-          setSelectedSong={setSelectedSong} // to reset to undefined
+          setUserSelection={setUserSelection} // to reset to undefined
         />
       </div>
-      <div className={cn("", isSearchEmpty() && !loading && "invisible")}>
+      <div
+        className={
+          (cn(isSearchEmpty() && !loading && "invisible",
+          userSelection.hasSelected === true && "invisible"))
+        }
+      >
         <Results
           songInfo={songInfo}
           loading={loading}
-          setSelectedSong={setSelectedSong} // to set to selected song
+          setUserSelection={setUserSelection} // to set to selected song
         />
       </div>
     </div>

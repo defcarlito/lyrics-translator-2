@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Setter } from "@/types/setter"
 import { Song } from "@/types/song"
+import { Selection } from "@/types/userChoice"
 import { useCallback, useEffect, useState } from "react"
 
 const PLACEHOLDER: string = "ex. País do Futebol by MC Guimê"
@@ -9,11 +10,11 @@ const PLACEHOLDER: string = "ex. País do Futebol by MC Guimê"
 export default function Search({
   setSongInfo,
   setLoading,
-  setSelectedSong,
+  setUserSelection,
 }: {
   setSongInfo: Setter<Song[]>
   setLoading: Setter<boolean>
-  setSelectedSong: Setter<Song | undefined>
+  setUserSelection: Setter<Selection>
 }) {
   const [userInput, setUserInput] = useState<string>("")
 
@@ -33,6 +34,8 @@ export default function Search({
 
   useSearchDelay(userInput, handleSubmit, setSongInfo)
 
+  const resetSelection: Selection = { song: undefined, hasSelected: false }
+
   return (
     <div className="space-y-8">
       <h1 className="text-4xl">Search for a song...</h1>
@@ -49,7 +52,7 @@ export default function Search({
           className="min-w-70"
           onChange={(event) => {
             setUserInput(event.target.value)
-            setSelectedSong(undefined)
+            setUserSelection(resetSelection)
           }}
         />
         <Button type="submit">Search</Button>

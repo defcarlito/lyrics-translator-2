@@ -1,10 +1,13 @@
-import { Song } from "@/types/song";
+import { Selection } from "@/types/userChoice"
 
-export default function LyricsBox({ selectedSong }: { selectedSong: Song | undefined }) {
-
+export default function LyricsBox({
+  userSelection,
+}: {
+  userSelection: Selection
+}) {
   return (
     <div>
-      <p>{selectedSong?.title}</p>
+      <p>{userSelection.song?.title}</p>
     </div>
   )
 }
