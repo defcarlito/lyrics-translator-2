@@ -2,7 +2,7 @@
 
 import { Song } from "@/types/song"
 import { useState } from "react"
-import SongSearchBox from "./SongSearchBox/SongSearchBox.client"
+import SongSearchBox from "./SongSearchBox/SongSearchBox"
 import LyricsBox from "./LyricsBox/LyricsBox"
 
 export default function Content() {

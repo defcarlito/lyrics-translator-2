@@ -1,9 +1,7 @@
-"use client"
-
 import { Song } from "@/types/song"
 import { useState } from "react"
 import Results from "./components/Results"
-import Search from "./components/Search.client"
+import Search from "./components/Search"
 import { Setter } from "@/types/setter"
 
 export default function SongSearchBox({ setSelectedSong }: { setSelectedSong: Setter<Song | undefined> }) {
