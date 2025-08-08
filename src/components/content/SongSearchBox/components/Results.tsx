@@ -13,7 +13,7 @@ export default function Results({
   setSelectedSong: Setter<Song | undefined>
 }) {
   return (
-    <div className="flex flex-col justify-between border p-4 w-md h-128 rounded-lg bg-card shadow-sm">
+    <div className="flex flex-col justify-between border p-4 w-md h-128 rounded-lg bg-card/50 backdrop-blur-xs shadow-sm">
       {loading
         ? Array.from({ length: 3 }).map((_, index) => (
             <SongSkeleton key={index} />
