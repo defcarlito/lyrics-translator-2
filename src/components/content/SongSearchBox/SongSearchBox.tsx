@@ -13,20 +13,22 @@ export default function SongSearchBox({
   const [songInfo, setSongInfo] = useState<Song[]>([])
   const [loading, setLoading] = useState<boolean>(false)
 
+  const isSearchEmpty = () => songInfo.length === 0
+
   return (
     <div className="space-y-2">
       <div>
         <Search
           setSongInfo={setSongInfo}
           setLoading={setLoading}
-          setSelectedSong={setSelectedSong}
+          setSelectedSong={setSelectedSong} // to reset to undefined
         />
       </div>
-      <div className={cn("", songInfo.length === 0 && !loading && "invisible")}>
+      <div className={cn("", isSearchEmpty() && !loading && "invisible")}>
         <Results
           songInfo={songInfo}
           loading={loading}
-          setSelectedSong={setSelectedSong}
+          setSelectedSong={setSelectedSong} // to set to selected song
         />
       </div>
     </div>
