@@ -9,9 +9,11 @@ const PLACEHOLDER: string = "ex. País do Futebol by MC Guimê"
 export default function Search({
   setSongInfo,
   setLoading,
+  setSelectedSong,
 }: {
   setSongInfo: Setter<Song[]>
   setLoading: Setter<boolean>
+  setSelectedSong: Setter<Song | undefined>
 }) {
   const [userInput, setUserInput] = useState<string>("")
 
@@ -45,7 +47,10 @@ export default function Search({
           name="search"
           placeholder={PLACEHOLDER}
           className="min-w-70"
-          onChange={(event) => setUserInput(event.target.value)}
+          onChange={(event) => {
+            setUserInput(event.target.value)
+            setSelectedSong(undefined)
+          }}
         />
         <Button type="submit">Search</Button>
       </form>
