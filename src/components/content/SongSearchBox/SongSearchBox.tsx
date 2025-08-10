@@ -2,7 +2,7 @@ import { cn } from "@/lib/utils"
 import { Setter } from "@/types/setter"
 import { Song } from "@/types/song"
 import { Selection } from "@/types/userChoice"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import Results from "./components/Results"
 import Search from "./components/Search"
 
@@ -32,7 +32,10 @@ export default function SongSearchBox({
       </div>
       <div
         className={cn(
-          isSearchEmpty() || userSelection.hasSelected ? "fade-out" : "fade-in"
+          "transition-[opacity, max-height] duration-400 overflow-hidden ease-in-out",
+          isSearchEmpty() || userSelection.hasSelected
+            ? "opacity-0 pointer-events-none max-h-0"
+            : "opacity-100 max-h-128"
         )}
       >
         <Results
