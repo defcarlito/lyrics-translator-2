@@ -6,8 +6,12 @@ export default function LyricsBox({
   userSelection: Selection
 }) {
   return (
-    <div>
-      <p>{userSelection.song?.title}</p>
+    <div className="bg-card border rounded-md p-4 gap-2">
+      <h1 className="text-4xl">Lyrics</h1>
+      <p className="max-w-128">
+        pretend these are lyrics pretend these are lyrics pretend these are
+        lyrics pretend these are lyrics
+      </p>
     </div>
   )
 }
