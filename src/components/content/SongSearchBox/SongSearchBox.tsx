@@ -4,7 +4,7 @@ import { Song } from "@/types/song"
 import { Selection } from "@/types/userChoice"
 import { useState } from "react"
 import Results from "./components/Results"
-import Search from "./components/Search"
+import SearchBox from "./components/Search"
 
 export default function SongSearchBox({
   userSelection,
@@ -22,7 +22,7 @@ export default function SongSearchBox({
   return (
     <div className="space-y-2">
       <div>
-        <Search
+        <SearchBox
           setSongInfo={setSongInfo}
           setLoading={setLoading}
           setUserSelection={setUserSelection}

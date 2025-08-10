@@ -19,20 +19,23 @@ export default function Content() {
           setUserSelection={setUserSelection}
         />
       </div>
-      {userSelection.hasSelected && (
-        <div className="space-y-2">
+      <div className="space-y-2">
+        {userSelection.hasSelected && (
           <div className="bg-card border p-4 rounded-md flex items-center gap-2">
             <div>
-              <img src={userSelection.song?.albumCover} className="size-16 rounded-md" />
+              <img
+                src={userSelection.song?.albumCover}
+                className="size-16 rounded-md"
+              />
             </div>
             <div>
               <p className="font-bold">{userSelection.song?.title}</p>
               <p>by {userSelection.song?.artist}</p>
             </div>
           </div>
-          <LyricsBox userSelection={userSelection} />
-        </div>
-      )}
+        )}
+        <LyricsBox userSelection={userSelection} />
+      </div>
     </>
   )
 }

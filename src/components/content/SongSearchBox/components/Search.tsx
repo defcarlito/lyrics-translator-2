@@ -3,18 +3,18 @@ import { Input } from "@/components/ui/input"
 import { Setter } from "@/types/setter"
 import { Song } from "@/types/song"
 import { Selection } from "@/types/userChoice"
+import { Search } from "lucide-react"
 import { useCallback, useEffect, useState } from "react"
 
 const PLACEHOLDER: string = "ex. País do Futebol by MC Guimê"
 const SEARCH_DEBOUNCE_DELAY: number = 400 // milliseconds
 
-export default function Search({
+export default function SearchBox({
   setSongInfo,
   setLoading,
   setUserSelection,
   userInput,
   setUserInput,
-  
 }: {
   setSongInfo: Setter<Song[]>
   setLoading: Setter<boolean>
@@ -22,7 +22,6 @@ export default function Search({
   userInput: string
   setUserInput: Setter<string>
 }) {
-
   const handleSubmit = useCallback(async () => {
     setLoading(true)
 
@@ -62,7 +61,9 @@ export default function Search({
             setLoading(true)
           }}
         />
-        <Button type="submit">Search</Button>
+        <Button type="submit" size="icon" variant="outline">
+          <Search />
+        </Button>
       </form>
     </div>
   )
