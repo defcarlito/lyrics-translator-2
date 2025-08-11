@@ -11,8 +11,14 @@ export default function LyricsBox({
   const lyricsByLine = lyrics.byLine
 
   return (
-    <div className="bg-card border rounded-md p-4 gap-2 w-md">
-      <h1 className="text-4xl">Lyrics</h1>
+    <div className="bg-card border rounded-md p-4 w-md space-y-4">
+      <div className="bg-card border p-4 rounded-sm flex gap-4">
+        <img src={userSelection.song?.albumCover} className="size-16 rounded-sm" />
+        <div className="flex flex-col items-start justify-center">
+          <h1 className="font-bold">{userSelection.song?.title}</h1>
+          <p>{userSelection.song?.artist}</p>
+        </div>
+      </div>
       <div>
         {!userSelection.hasSelected ? (
           <p>Pick a song</p>
