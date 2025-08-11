@@ -14,12 +14,14 @@ export default function LyricsBox({
     <div className="bg-card border rounded-md p-4 gap-2 w-md">
       <h1 className="text-4xl">Lyrics</h1>
       <div>
-        {lyricsByLine.length === 0 ? (
+        {!userSelection.hasSelected ? (
           <p>Pick a song</p>
         ) : (
           <>
             {lyricsByLine.map((line, index) => (
-              <p key={index}>{line}</p>
+              <span key={index}>
+                {line} <br />
+              </span>
             ))}
           </>
         )}

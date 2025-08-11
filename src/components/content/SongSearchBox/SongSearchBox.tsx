@@ -20,8 +20,8 @@ export default function SongSearchBox({
   const isSearchEmpty = () => userInput.length === 0
 
   return (
-    <div className="space-y-2">
-      <div>
+    <div className="space-y-2 relative">
+      <div className="w-md">
         <SearchBox
           setSongInfo={setSongInfo}
           setLoading={setLoading}
@@ -32,7 +32,7 @@ export default function SongSearchBox({
       </div>
       <div
         className={cn(
-          "transition-[opacity, max-height] duration-400 overflow-hidden ease-in-out",
+          "transition-[opacity, max-height] duration-400 overflow-hidden ease-in-out absolute",
           isSearchEmpty() || userSelection.hasSelected
             ? "opacity-0 pointer-events-none max-h-0"
             : "opacity-100 max-h-128"

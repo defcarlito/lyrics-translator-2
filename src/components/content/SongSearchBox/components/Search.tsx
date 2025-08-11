@@ -4,7 +4,7 @@ import { Setter } from "@/types/setter"
 import { Song } from "@/types/song"
 import { Selection } from "@/types/userChoice"
 import { Search } from "lucide-react"
-import { useCallback, useEffect, useState } from "react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 
 const PLACEHOLDER: string = "ex. País do Futebol by MC Guimê"
 const SEARCH_DEBOUNCE_DELAY: number = 400 // milliseconds
@@ -42,7 +42,6 @@ export default function SearchBox({
 
   return (
     <div className="space-y-4">
-      <h1 className="text-4xl">Search for a song...</h1>
       <form
         onSubmit={(event) => {
           event.preventDefault()
@@ -54,14 +53,14 @@ export default function SearchBox({
         <Input
           name="search"
           placeholder={PLACEHOLDER}
-          className="min-w-70"
+          className="min-w-70 bg-card"
           onChange={(event) => {
             setUserInput(event.target.value)
             setUserSelection(resetSelection)
             setLoading(true)
           }}
         />
-        <Button type="submit" size="icon" variant="outline">
+        <Button type="submit" size="icon" color="primary">
           <Search />
         </Button>
       </form>
