@@ -28,12 +28,6 @@ export async function POST(request: NextRequest) {
     sentence.split(" ").filter((word) => word !== "")
   )
 
-  console.log(topSearchLyrics)
-  console.log("---")
-  console.log(lyricsByLine)
-  console.log("---")
-  console.log(lyricsByWord)
-
   return NextResponse.json({
     byLine: lyricsByLine,
     byWord: lyricsByWord,
