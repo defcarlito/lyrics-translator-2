@@ -1,12 +1,17 @@
 import { Lyrics } from "@/types/lyrics"
+import { Setter } from "@/types/setter"
 import { Selection } from "@/types/userChoice"
 import { useEffect, useState } from "react"
 import Line from "./components/Line"
 
 export default function LyricsBox({
   userSelection,
+  clickedWords,
+  setClickedWords,
 }: {
   userSelection: Selection
+  clickedWords: Set<string>
+  setClickedWords: Setter<Set<string>>
 }) {
   const lyrics: Lyrics = useGetSongLyrics(userSelection)
   const lyricsByLine = lyrics.byLine
@@ -27,13 +32,18 @@ export default function LyricsBox({
         {!userSelection.hasSelected ? (
           <p>Pick a song</p>
         ) : (
-          <>
+          <div className="space-y-0">
             {lyricsByLine.map((line, index) => (
-              <>
-                <Line line={line} key={index} /> <br />
-              </>
+              <div key={index}>
+                <Line
+                  line={line}
+                  clickedWords={clickedWords}
+                  setClickedWords={setClickedWords}
+                />{" "}
+                <br />
+              </div>
             ))}
-          </>
+          </div>
         )}
       </div>
     </div>
