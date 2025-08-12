@@ -10,10 +10,6 @@ export default function LyricsVocabBox({
 }) {
   const [clickedWords, setClickedWords] = useState<Set<string>>(new Set([]))
 
-  useEffect(() => {
-    console.log(clickedWords)
-  }, [clickedWords])
-
   return (
     <div className="flex gap-2 h-fit">
       <LyricsBox
@@ -21,7 +17,7 @@ export default function LyricsVocabBox({
         clickedWords={clickedWords}
         setClickedWords={setClickedWords}
       />
-      <VocabWordsBox />
+      <VocabWordsBox clickedWords={clickedWords} setClickedWords={setClickedWords} />
     </div>
   )
 }
