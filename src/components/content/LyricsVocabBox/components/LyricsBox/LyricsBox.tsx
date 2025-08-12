@@ -1,6 +1,7 @@
 import { Lyrics } from "@/types/lyrics"
 import { Selection } from "@/types/userChoice"
 import { useEffect, useState } from "react"
+import Line from "./components/Line"
 
 export default function LyricsBox({
   userSelection,
@@ -13,7 +14,10 @@ export default function LyricsBox({
   return (
     <div className="bg-card border rounded-md p-4 w-md space-y-4">
       <div className="bg-card border p-4 rounded-sm flex gap-4">
-        <img src={userSelection.song?.albumCover} className="size-16 rounded-sm" />
+        <img
+          src={userSelection.song?.albumCover}
+          className="size-16 rounded-sm"
+        />
         <div className="flex flex-col items-start justify-center">
           <h1 className="font-bold">{userSelection.song?.title}</h1>
           <p>{userSelection.song?.artist}</p>
@@ -25,9 +29,9 @@ export default function LyricsBox({
         ) : (
           <>
             {lyricsByLine.map((line, index) => (
-              <span key={index}>
-                {line} <br />
-              </span>
+              <>
+                <Line line={line} key={index} /> <br />
+              </>
             ))}
           </>
         )}
