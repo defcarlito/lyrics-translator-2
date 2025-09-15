@@ -7,7 +7,7 @@ export type Word = {
 export type Meaning = {
   translation: string
   pos: POS
-  gender: "male" | "female" | "both"
+  gender: "male" | "female" | "both" | null
   infinitive: string | null
   slang: boolean
 }
