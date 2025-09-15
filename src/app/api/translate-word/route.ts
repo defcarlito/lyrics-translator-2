@@ -5,7 +5,7 @@ import { z } from "zod"
 
 import { db } from "@/app/firebase/config"
 import { Language, Meaning, Word } from "@/types/word"
-import { doc, setDoc } from "firebase/firestore"
+import { doc, getDoc, setDoc } from "firebase/firestore"
 
 const PARTS_OF_SPEECH = [
   "noun",
@@ -28,19 +28,22 @@ const WORD_GENDERS = ["male", "female", "both"] as const
 
 export async function POST(request: NextRequest) {
   const body = await request.json()
-  const untranslatedWord = body.word
+  const untranslatedWord = toLowerAndStripPunctuation(body.word)
 
-  // TODO: create a conditional that:
-  //  1. checks the cache (firebase db) for the translation
-  //
-  //  2.
-  //  if it's present in the cache:
-  //    returns the cached translation
-  //  if it's not in the cache:
-  //    creates the translation and writes it to the cache
+  console.log("Unstripped word: " + body.word)
+  console.log("Stripped word: " + untranslatedWord)
+  console.log("Checking cache...")
 
-  const wordObj: Word = await createTranslation(untranslatedWord)
-  await writeToTranslationCache(wordObj)
+  let wordObj: Word | null = await getTranslationFromCache(untranslatedWord)
+
+  if (!wordObj) {
+    console.log("not in cache, making translation and writing...")
+    wordObj = await createTranslation(untranslatedWord)
+    await writeToTranslationCache(wordObj)
+    console.log("wrote to cache")
+  } else {
+    console.log("found in cache")
+  }
 
   return NextResponse.json({
     data: wordObj,
@@ -48,10 +51,8 @@ export async function POST(request: NextRequest) {
 }
 
 async function createTranslation(untranslatedWord: string): Promise<Word> {
-  const word = toLowerAndStripPunctuation(untranslatedWord)
-
   const wordMetaData = z.object({
-    word: z.literal(word),
+    word: z.literal(untranslatedWord),
     meanings: z
       .array(
         z
@@ -97,7 +98,7 @@ async function createTranslation(untranslatedWord: string): Promise<Word> {
       {
         role: "user",
         content: `
-        Extract only the most clearly distinct and commonly used meanings for the word ${word} and 
+        Extract only the most clearly distinct and commonly used meanings for the word ${untranslatedWord} and 
         metadata in the given structure. The word may or may not have multiple meanings across 
         different parts of speech - Do not confuse words with different spellings or accents as variants 
         of the same word. Avoid any explanatory text in parentheses (i.e. "(auxiliary)", "(colloquial)", etc). 
@@ -109,16 +110,15 @@ async function createTranslation(untranslatedWord: string): Promise<Word> {
     },
   })
 
-  // the model's unformatted response
+  // the model's response
   const event = response.output_parsed
 
+  // temp fix to make model output consistent
   const eventFormatted = {
     word: event?.word,
     meanings: event?.meanings.map((meaning) => ({
       ...meaning,
-      infinitive: meaning?.infinitive
-        ? toLowerAndStripPunctuation(meaning.infinitive)
-        : null,
+      infinitive: meaning?.infinitive ? meaning.infinitive : null,
     })),
     language: event?.language,
   }
@@ -134,10 +134,10 @@ async function createTranslation(untranslatedWord: string): Promise<Word> {
     slang: meaning.slang!,
   }))
 
-  const lang: Language = eventFormatted["language"] ?? "other"
+  const lang: Language = eventFormatted["language"]!
 
   const metadata: Word = {
-    word: word,
+    word: untranslatedWord,
     meanings: meanings,
     language: lang,
   }
@@ -145,8 +145,25 @@ async function createTranslation(untranslatedWord: string): Promise<Word> {
   return metadata
 }
 
-function isInTranslationCache(untranslatedWord: string): boolean {
-  return false
+async function getTranslationFromCache(
+  untranslatedWord: string
+): Promise<Word | null> {
+  for (const lang of LANGUAGES) {
+    const docRef = doc(db, lang, untranslatedWord)
+    const docSnap = await getDoc(docRef)
+
+    if (docSnap.exists()) {
+      const data = docSnap.data()
+      const wordData: Word = {
+        word: untranslatedWord,
+        meanings: data.meanings,
+        language: lang,
+      }
+      return wordData
+    }
+  }
+
+  return null
 }
 
 async function writeToTranslationCache(obj: any) {
