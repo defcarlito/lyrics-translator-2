@@ -4,6 +4,7 @@ import { zodTextFormat } from "openai/helpers/zod.mjs"
 import { z } from "zod"
 
 import { db } from "@/app/firebase/config"
+import { Language, Meaning, Word } from "@/types/word"
 import { doc, setDoc } from "firebase/firestore"
 
 const PARTS_OF_SPEECH = [
@@ -28,16 +29,25 @@ const WORD_GENDERS = ["male", "female", "both"] as const
 export async function POST(request: NextRequest) {
   const body = await request.json()
   const untranslatedWord = body.word
-  
-  const obj = await createTranslation(untranslatedWord)
-  await writeToTranslationCache(obj)
+
+  // TODO: create a conditional that:
+  //  1. checks the cache (firebase db) for the translation
+  //
+  //  2.
+  //  if it's present in the cache:
+  //    returns the cached translation
+  //  if it's not in the cache:
+  //    creates the translation and writes it to the cache
+
+  const wordObj: Word = await createTranslation(untranslatedWord)
+  await writeToTranslationCache(wordObj)
 
   return NextResponse.json({
-    data: obj,
+    data: wordObj,
   })
 }
 
-async function createTranslation(untranslatedWord: string) {
+async function createTranslation(untranslatedWord: string): Promise<Word> {
   const word = toLowerAndStripPunctuation(untranslatedWord)
 
   const wordMetaData = z.object({
@@ -99,6 +109,7 @@ async function createTranslation(untranslatedWord: string) {
     },
   })
 
+  // the model's unformatted response
   const event = response.output_parsed
 
   const eventFormatted = {
@@ -114,10 +125,27 @@ async function createTranslation(untranslatedWord: string) {
 
   console.log(eventFormatted)
   console.log(response.usage)
-  return eventFormatted
+
+  const meanings: Meaning[] = eventFormatted.meanings!.map((meaning) => ({
+    translation: meaning.translation!,
+    pos: meaning.pos!,
+    gender: meaning.gender!,
+    infinitive: meaning.infinitive!,
+    slang: meaning.slang!,
+  }))
+
+  const lang: Language = eventFormatted["language"] ?? "other"
+
+  const metadata: Word = {
+    word: word,
+    meanings: meanings,
+    language: lang,
+  }
+
+  return metadata
 }
 
-function checkTranslationCache(untranslatedWord: string): boolean {
+function isInTranslationCache(untranslatedWord: string): boolean {
   return false
 }
 
