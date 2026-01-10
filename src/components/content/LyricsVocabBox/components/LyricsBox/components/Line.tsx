@@ -1,18 +1,18 @@
-import { Setter } from "@/types/setter"
+import { Setter } from "@/types/setter";
 
 export default function Line({
   line,
   clickedWords,
   setClickedWords,
 }: {
-  line: string
-  clickedWords: Set<string>
-  setClickedWords: Setter<Set<string>>
+  line: string;
+  clickedWords: Set<string>;
+  setClickedWords: Setter<Set<string>>;
 }) {
-  const words = line.split(" ")
+  const words = line.split(" ");
 
   return (
-    <span className="flex gap-x-1 flex-wrap">
+    <span className="flex gap-x-0 flex-wrap">
       {words.map((word, index) => (
         <span key={index}>
           <Word
@@ -23,7 +23,7 @@ export default function Line({
         </span>
       ))}
     </span>
-  )
+  );
 }
 
 const Word = ({
@@ -31,16 +31,17 @@ const Word = ({
   clickedWords,
   setClickedWords,
 }: {
-  word: string
-  clickedWords: Set<string>
-  setClickedWords: Setter<Set<string>>
+  word: string;
+  clickedWords: Set<string>;
+  setClickedWords: Setter<Set<string>>;
 }) => {
   return (
     <span
       role="button"
-      onClick={() => setClickedWords(prev => new Set(prev.add(word)))}
+      onClick={() => setClickedWords((prev) => new Set(prev.add(word)))}
+      className="hover:bg-blue-700 hover:text-white p-[3] rounded-sm cursor-pointer"
     >
       {word}
     </span>
-  )
-}
+  );
+};
