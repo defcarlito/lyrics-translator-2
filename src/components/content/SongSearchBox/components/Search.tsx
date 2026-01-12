@@ -83,5 +83,5 @@ function useSearchDelay(
       handleSubmit()
     }, SEARCH_DEBOUNCE_DELAY)
     return () => clearTimeout(timer)
-  }, [userInput])
+  }, [userInput, handleSubmit, setSongInfo])
 }
