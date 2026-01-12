@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils"
 import { Setter } from "@/types/setter"
-import { Word } from "@/types/word"
+import { Word as WordType } from "@/types/word"
 
 export default function Line({
   line,
@@ -8,8 +8,8 @@ export default function Line({
   setClickedWords,
 }: {
   line: string
-  clickedWords: Map<string, Word>
-  setClickedWords: Setter<Map<string, Word>>
+  clickedWords: Map<string, WordType>
+  setClickedWords: Setter<Map<string, WordType>>
 }) {
   const words = line.split(" ")
 
@@ -34,11 +34,11 @@ const Word = ({
   setClickedWords,
 }: {
   word: string
-  clickedWords: Map<string, Word>
-  setClickedWords: Setter<Map<string, Word>>
+  clickedWords: Map<string, WordType>
+  setClickedWords: Setter<Map<string, WordType>>
 }) => {
   const cleanedWord = toLowerAndStripPunctuation(word)
-  const w: Word = {
+  const w: WordType = {
     word: cleanedWord,
     meanings: [],
     language: "other",
