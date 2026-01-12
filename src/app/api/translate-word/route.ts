@@ -5,7 +5,8 @@ import { z } from "zod"
 
 // import { db } from "@/app/firebase/config";
 import { Language, Meaning, Word } from "@/types/word"
-import { doc, getDoc, setDoc } from "firebase/firestore"
+// import { doc, getDoc, setDoc } from "firebase/firestore";
+import { db } from "@/app/firebase/firebase-admin"
 
 const PARTS_OF_SPEECH = [
   "noun",
@@ -146,35 +147,61 @@ async function createTranslation(untranslatedWord: string): Promise<Word> {
   return metadata
 }
 
+// async function getTranslationFromCache(
+//   untranslatedWord: string,
+// ): Promise<Word | null> {
+//   for (const lang of LANGUAGES) {
+//     const docRef = doc(db, lang, untranslatedWord);
+//     const docSnap = await getDoc(docRef);
+//
+//     if (docSnap.exists()) {
+//       const data = docSnap.data();
+//       const wordData: Word = {
+//         word: untranslatedWord,
+//         meanings: data.meanings,
+//         language: lang,
+//         selectedMeaningIndex: 0,
+//       };
+//       return wordData;
+//     }
+//   }
+//
+//   return null;
+// }
+
 async function getTranslationFromCache(
   untranslatedWord: string,
 ): Promise<Word | null> {
   for (const lang of LANGUAGES) {
-    const docRef = doc(db, lang, untranslatedWord)
-    const docSnap = await getDoc(docRef)
+    const snap = await db.collection(lang).doc(untranslatedWord).get()
 
-    if (docSnap.exists()) {
-      const data = docSnap.data()
-      const wordData: Word = {
+    if (snap.exists) {
+      const data = snap.data()!
+      return {
         word: untranslatedWord,
         meanings: data.meanings,
         language: lang,
         selectedMeaningIndex: 0,
       }
-      return wordData
     }
   }
 
   return null
 }
 
-async function writeToTranslationCache(obj: any) {
-  const word = obj.word
-  const meanings = obj.meanings
-  const language = obj.language
+// async function writeToTranslationCache(obj: any) {
+//   const word = obj.word;
+//   const meanings = obj.meanings;
+//   const language = obj.language;
+//
+//   await setDoc(doc(db, language, word), {
+//     meanings,
+//   });
+// }
 
-  await setDoc(doc(db, language, word), {
-    meanings,
+async function writeToTranslationCache(word: Word) {
+  await db.collection(word.language).doc(word.word).set({
+    meanings: word.meanings,
   })
 }
 
