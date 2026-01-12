@@ -1,10 +1,10 @@
-import { cn } from "@/lib/utils";
-import { Setter } from "@/types/setter";
-import { Song } from "@/types/song";
-import { Selection } from "@/types/userChoice";
-import { useState } from "react";
-import Results from "./components/Results";
-import SearchBox from "./components/Search";
+import { cn } from "@/lib/utils"
+import { Setter } from "@/types/setter"
+import { Song } from "@/types/song"
+import { Selection } from "@/types/userChoice"
+import { useState } from "react"
+import Results from "./components/Results"
+import SearchBox from "./components/Search"
 
 export default function SongSearchBox({
   userSelection,
