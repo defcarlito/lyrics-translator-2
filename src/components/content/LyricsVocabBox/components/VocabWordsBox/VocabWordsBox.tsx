@@ -1,5 +1,6 @@
-import { Setter } from "@/types/setter";
-import WordCard from "./components/WordCard/WordCard";
+import { Setter } from "@/types/setter"
+import WordCard from "./components/WordCard/WordCard"
+import { Word } from "@/types/word"
 
 export default function VocabWordsBox({
   clickedWords,
@@ -35,7 +36,8 @@ export default function VocabWordsBox({
         <div className="bg-card border p-4 rounded-md w-sm md:w-md grid grid-cols-1 md:grid-cols-2 gap-4 content-start overflow-scroll h-[50vh] lg:h-[75vh]">
           {Array.from(clickedWords.values()).map((word, index) => (
             <WordCard
-              word={word}
+              word={word.word}
+              clickedWords={clickedWords}
               setClickedWords={setClickedWords}
               key={index}
             />

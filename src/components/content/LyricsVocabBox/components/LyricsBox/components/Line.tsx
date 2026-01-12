@@ -1,4 +1,6 @@
-import { Setter } from "@/types/setter";
+import { cn } from "@/lib/utils"
+import { Setter } from "@/types/setter"
+import { Word } from "@/types/word"
 
 export default function Line({
   line,
