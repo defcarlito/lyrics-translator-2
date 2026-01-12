@@ -23,10 +23,11 @@ export default function LyricsBox({
         <img
           src={userSelection.song?.albumCover}
           className="size-16 rounded-sm"
+          alt="album cover"
         />
         <div className="flex flex-col items-start justify-center">
           <h1 className="font-bold">{userSelection.song?.title}</h1>
-          <p>{userSelection.song?.artist}</p>
+          <p>by {userSelection.song?.artist}</p>
         </div>
       </div>
       <div>
