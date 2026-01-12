@@ -3,7 +3,7 @@ import { Button } from "@/components/ui/button";
 export default function Export({
   clickedWords,
 }: {
-  clickedWords: Set<string>;
+  clickedWords: Map<string, Word>
 }) {
   function exportWords() {
     console.log(clickedWords);

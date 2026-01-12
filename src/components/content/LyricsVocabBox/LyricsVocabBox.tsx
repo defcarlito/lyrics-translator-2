@@ -10,8 +10,7 @@ export default function LyricsVocabBox({
 }: {
   userSelection: Selection
 }) {
-  const [clickedWords, setClickedWords] = useState<Set<string>>(new Set([]));
-  const [wordsMetadata, setWordsMetadata] = useState<Set<Word>>(new Set([]));
+  const [clickedWords, setClickedWords] = useState<Map<string, Word>>(new Map())
 
   return (
     <div className="flex flex-col gap-2">

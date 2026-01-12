@@ -9,9 +9,9 @@ export default function LyricsBox({
   clickedWords,
   setClickedWords,
 }: {
-  userSelection: Selection;
-  clickedWords: Set<string>;
-  setClickedWords: Setter<Set<string>>;
+  userSelection: Selection
+  clickedWords: Map<string, Word>
+  setClickedWords: Setter<Map<string, Word>>
 }) {
   const lyrics: Lyrics = useGetSongLyrics(userSelection);
   const lyricsByLine = lyrics.byLine;

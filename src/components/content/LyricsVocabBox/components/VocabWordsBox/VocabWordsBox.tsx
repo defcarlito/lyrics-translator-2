@@ -32,8 +32,8 @@ export default function VocabWordsBox({
           </div>
         </div>
       ) : (
-        <div className="bg-card border p-4 rounded-md w-sm md:w-md grid grid-cols-2 lg:grid-cols-3 gap-4 content-start overflow-scroll h-[50vh] lg:h-[75vh]">
-          {[...clickedWords].map((word, index) => (
+        <div className="bg-card border p-4 rounded-md w-sm md:w-md grid grid-cols-1 md:grid-cols-2 gap-4 content-start overflow-scroll h-[50vh] lg:h-[75vh]">
+          {Array.from(clickedWords.values()).map((word, index) => (
             <WordCard
               word={word}
               setClickedWords={setClickedWords}

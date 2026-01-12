@@ -5,9 +5,9 @@ export default function Line({
   clickedWords,
   setClickedWords,
 }: {
-  line: string;
-  clickedWords: Set<string>;
-  setClickedWords: Setter<Set<string>>;
+  line: string
+  clickedWords: Map<string, Word>
+  setClickedWords: Setter<Map<string, Word>>
 }) {
   const words = line.split(" ")
 
@@ -31,9 +31,9 @@ const Word = ({
   clickedWords,
   setClickedWords,
 }: {
-  word: string;
-  clickedWords: Set<string>;
-  setClickedWords: Setter<Set<string>>;
+  word: string
+  clickedWords: Map<string, Word>
+  setClickedWords: Setter<Map<string, Word>>
 }) => {
   const cleanedWord = toLowerAndStripPunctuation(word)
   const w: Word = {
@@ -46,8 +46,17 @@ const Word = ({
   return (
     <span
       role="button"
-      onClick={() => setClickedWords((prev) => new Set(prev.add(word)))}
-      className="hover:bg-blue-700 hover:text-white p-[3] rounded-sm cursor-pointer"
+      onClick={() =>
+        setClickedWords((prev) => {
+          const next = new Map(prev)
+          next.set(w.word, w)
+          return next
+        })
+      }
+      className={cn(
+        "hover:bg-black hover:text-white p-[3] rounded-sm cursor-pointer",
+        clickedWords.has(cleanedWord) && "bg-green-300/50",
+      )}
     >
       {word}
     </span>

@@ -11,8 +11,9 @@ export default function WordCard({
   word,
   setClickedWords,
 }: {
-  word: string;
-  setClickedWords: Setter<Set<string>>;
+  word: string
+  clickedWords: Map<string, Word>
+  setClickedWords: Setter<Map<string, Word>>
 }) {
   const [metadata, setMetadata] = useState<Word | undefined>(undefined);
 
@@ -24,17 +25,26 @@ export default function WordCard({
 
   useEffect(() => {
     if (data?.data) {
-      setMetadata(data.data);
-      console.log(data.data);
+      setMetadata(data.data)
+      console.log("Word:", data.data)
+      setClickedWords((prev) => {
+        const existing = prev.get(cleanedWord)
+        const next = new Map(prev)
+        next.set(cleanedWord, {
+          ...data?.data,
+          selectedMeaningIndex: existing?.selectedMeaningIndex ?? 0,
+        })
+        return next
+      })
     }
   }, [data, setClickedWords, cleanedWord])
 
   function removeWord() {
     setClickedWords((prev) => {
-      const newClickedWords = new Set(prev);
-      newClickedWords.delete(word);
-      return newClickedWords;
-    });
+      const next = new Map(prev)
+      next.delete(cleanedWord)
+      return next
+    })
   }
 
   const cleanedWord = toLowerAndStripPunctuation(word);
@@ -63,9 +73,29 @@ export default function WordCard({
     )
   }
 
-  let slangBadge = null;
-  if (firstMeaning?.slang) {
-    slangBadge = <Badge className="bg-orange-300">Slang</Badge>;
+  let slangBadge = null
+  if (metadata?.meanings.at(metadata.selectedMeaningIndex)?.slang) {
+    slangBadge = <Badge className="bg-orange-200 text-black">Slang</Badge>
+  }
+
+  function updateSelectedMeaning(index: number) {
+    setClickedWords((prev) => {
+      const next = new Map(prev)
+      const existing = next.get(cleanedWord)
+
+      if (!existing) return prev
+
+      next.set(cleanedWord, {
+        ...existing,
+        selectedMeaningIndex: index,
+      })
+
+      return next
+    })
+
+    setMetadata((prev) =>
+      prev ? { ...prev, selectedMeaningIndex: index } : prev,
+    )
   }
 
   return isLoading ? (
