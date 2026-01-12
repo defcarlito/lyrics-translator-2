@@ -14,14 +14,11 @@ export async function POST(request: NextRequest) {
   const topSearchLyrics: string = await searches[0].lyrics(REMOVE_CHORUS)
 
   const lyricsByLine = topSearchLyrics.split("\n")
-  const formatLines = () => {
-    lyricsByLine.shift() // Remove contributors line
-    while (lyricsByLine[0] == "") {
-      // Remove empty lines in the start
-      lyricsByLine.shift()
-    }
+  lyricsByLine.shift() // Remove contributors line
+  while (lyricsByLine[0] == "") {
+    // Remove empty lines in the start
+    lyricsByLine.shift()
   }
-  formatLines()
 
   const lyricsByWord = lyricsByLine.flatMap((sentence) =>
     sentence.split(" ").filter((word) => word !== ""),
