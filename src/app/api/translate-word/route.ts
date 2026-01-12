@@ -140,6 +140,7 @@ async function createTranslation(untranslatedWord: string): Promise<Word> {
     word: untranslatedWord,
     meanings: meanings,
     language: lang,
+    selectedMeaningIndex: 0,
   }
 
   return metadata
@@ -158,6 +159,7 @@ async function getTranslationFromCache(
         word: untranslatedWord,
         meanings: data.meanings,
         language: lang,
+        selectedMeaningIndex: 0,
       }
       return wordData
     }

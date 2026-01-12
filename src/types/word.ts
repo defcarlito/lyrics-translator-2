@@ -2,6 +2,7 @@ export type Word = {
   word: string
   meanings: Meaning[]
   language: Language
+  selectedMeaningIndex: number
 }
 
 export type Meaning = {

@@ -35,6 +35,14 @@ const Word = ({
   clickedWords: Set<string>;
   setClickedWords: Setter<Set<string>>;
 }) => {
+  const cleanedWord = toLowerAndStripPunctuation(word)
+  const w: Word = {
+    word: cleanedWord,
+    meanings: [],
+    language: "other",
+    selectedMeaningIndex: 0,
+  }
+
   return (
     <span
       role="button"
