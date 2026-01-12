@@ -6,7 +6,7 @@ import { Selection } from "@/types/userChoice"
 import { Search } from "lucide-react"
 import { useCallback, useEffect } from "react"
 
-const PLACEHOLDER: string = "ex. País do Futebol by MC Guimê"
+const PLACEHOLDER: string = "Search for a song..."
 const SEARCH_DEBOUNCE_DELAY: number = 400 // milliseconds
 
 export default function SearchBox({
