@@ -70,7 +70,7 @@ export default function SearchBox({
 
 function useSearchDelay(
   userInput: string,
-  handleSubmit: Function,
+  handleSubmit: () => Promise<void>,
   setSongInfo: Setter<Song[]>,
 ) {
   useEffect(() => {
