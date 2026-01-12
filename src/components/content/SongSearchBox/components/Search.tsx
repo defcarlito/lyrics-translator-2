@@ -4,7 +4,7 @@ import { Setter } from "@/types/setter"
 import { Song } from "@/types/song"
 import { Selection } from "@/types/userChoice"
 import { Search } from "lucide-react"
-import { useCallback, useEffect, useMemo, useState } from "react"
+import { useCallback, useEffect } from "react"
 
 const PLACEHOLDER: string = "ex. País do Futebol by MC Guimê"
 const SEARCH_DEBOUNCE_DELAY: number = 400 // milliseconds

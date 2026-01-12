@@ -1,4 +1,3 @@
-import { Lyrics } from "@/types/lyrics"
 import { Song } from "@/types/song"
 import Genius from "genius-lyrics"
 import { NextRequest, NextResponse } from "next/server"
