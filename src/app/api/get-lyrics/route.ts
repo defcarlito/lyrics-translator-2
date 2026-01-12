@@ -2,11 +2,11 @@ import { Song } from "@/types/song"
 import Genius from "genius-lyrics"
 import { NextRequest, NextResponse } from "next/server"
 
-const Client = new Genius.Client(process.env.GENIUS_ACCESS_TOKEN)
-
 const REMOVE_CHORUS = true
 
 export async function POST(request: NextRequest) {
+  const Client = new Genius.Client(process.env.GENIUS_ACCESS_TOKEN)
+
   const body = await request.json()
   const song: Song = body.song
 
