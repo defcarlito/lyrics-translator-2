@@ -22,23 +22,37 @@ export async function POST(request: NextRequest) {
 
     // limit # search results to <= RESULT_LIMIT
     const totalSearchResult: number = Math.min(RESULT_LIMIT, totalHits)
-    const topSearchResults: JSON[] = data.response.hits.slice(
-      0,
-      totalSearchResult,
-    )
+    const topSearchResults = data.response.hits.slice(0, totalSearchResult)
 
     return topSearchResults
   }
 
   const searchHits = getTopHits()
 
-  const formattedSongInfo: Song[] = searchHits.map((hit: any) => {
+  type Hit = {
+    result: HitData
+  }
+
+  type Artist = {
+    name: string
+  }
+
+  type HitData = {
+    title: string
+    artist: string
+    header_image_url: string
+    featured_artists: Artist[]
+    primary_artist: Artist
+  }
+
+  const formattedSongInfo: Song[] = searchHits.map((hit: Hit) => {
     const songInfo = hit.result
 
     const getFeaturedArtistNames = () => {
-      const allFeaturedArtists: JSON[] = songInfo.featured_artists
+      const allFeaturedArtists: Artist[] = songInfo.featured_artists
       const allFeaturedArtistsNames: string[] = allFeaturedArtists.map(
-        (artist: any) => {
+        (artist: Artist) => {
+          console.log(artist)
           return artist.name
         },
       )
@@ -47,12 +61,14 @@ export async function POST(request: NextRequest) {
 
     const featuredArtistsNames = getFeaturedArtistNames()
 
-    return {
+    const song: Song = {
       title: songInfo.title,
       artist: songInfo.primary_artist.name,
       featuredArtists: featuredArtistsNames,
       albumCover: songInfo.header_image_url,
     }
+
+    return song
   })
 
   return NextResponse.json({
