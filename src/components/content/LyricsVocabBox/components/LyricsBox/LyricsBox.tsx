@@ -47,28 +47,28 @@ export default function LyricsBox({
         )}
       </div>
     </div>
-  );
+  )
 }
 
 function useGetSongLyrics(userSelection: Selection) {
   const [lyricsData, setLyricsData] = useState<Lyrics>({
     byLine: [],
     byWord: [],
-  });
+  })
   useEffect(() => {
     async function fetchLyrics() {
-      if (!userSelection.hasSelected) return;
+      if (!userSelection.hasSelected) return
 
       const res = await fetch("/api/get-lyrics", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({ song: userSelection.song }),
-      });
+      })
 
-      const data = await res.json();
-      setLyricsData(data);
+      const data = await res.json()
+      setLyricsData(data)
     }
-    fetchLyrics();
-  }, [userSelection]);
-  return lyricsData;
+    fetchLyrics()
+  }, [userSelection])
+  return lyricsData
 }

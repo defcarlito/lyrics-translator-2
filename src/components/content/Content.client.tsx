@@ -1,15 +1,15 @@
-"use client";
+"use client"
 
-import { Selection } from "@/types/userChoice";
-import { useState } from "react";
-import SongSearchBox from "./SongSearchBox/SongSearchBox";
-import LyricsVocabBox from "./LyricsVocabBox/LyricsVocabBox";
+import { Selection } from "@/types/userChoice"
+import { useState } from "react"
+import SongSearchBox from "./SongSearchBox/SongSearchBox"
+import LyricsVocabBox from "./LyricsVocabBox/LyricsVocabBox"
 
 export default function Content() {
   const [userSelection, setUserSelection] = useState<Selection>({
     song: undefined,
     hasSelected: false,
-  });
+  })
 
   return (
     <>
@@ -25,5 +25,5 @@ export default function Content() {
         )}
       </div>
     </>
-  );
+  )
 }

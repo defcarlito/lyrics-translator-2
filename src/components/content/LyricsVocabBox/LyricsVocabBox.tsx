@@ -8,7 +8,7 @@ import { Word } from "@/types/word";
 export default function LyricsVocabBox({
   userSelection,
 }: {
-  userSelection: Selection;
+  userSelection: Selection
 }) {
   const [clickedWords, setClickedWords] = useState<Set<string>>(new Set([]));
   const [wordsMetadata, setWordsMetadata] = useState<Set<Word>>(new Set([]));
@@ -30,5 +30,5 @@ export default function LyricsVocabBox({
         <Export clickedWords={clickedWords} />
       </div>
     </div>
-  );
+  )
 }

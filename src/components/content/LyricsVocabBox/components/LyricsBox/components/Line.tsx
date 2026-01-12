@@ -9,7 +9,7 @@ export default function Line({
   clickedWords: Set<string>;
   setClickedWords: Setter<Set<string>>;
 }) {
-  const words = line.split(" ");
+  const words = line.split(" ")
 
   return (
     <span className="flex gap-x-0 flex-wrap">
@@ -23,7 +23,7 @@ export default function Line({
         </span>
       ))}
     </span>
-  );
+  )
 }
 
 const Word = ({

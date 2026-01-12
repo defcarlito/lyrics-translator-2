@@ -25,7 +25,7 @@ export async function POST(request: NextRequest) {
   formatLines()
 
   const lyricsByWord = lyricsByLine.flatMap((sentence) =>
-    sentence.split(" ").filter((word) => word !== "")
+    sentence.split(" ").filter((word) => word !== ""),
   )
 
   return NextResponse.json({

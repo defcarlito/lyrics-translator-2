@@ -45,5 +45,5 @@ export default function SongSearchBox({
         />
       </div>
     </div>
-  );
+  )
 }

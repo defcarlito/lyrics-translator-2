@@ -3,7 +3,7 @@ import OpenAI from "openai"
 import { zodTextFormat } from "openai/helpers/zod.mjs"
 import { z } from "zod"
 
-import { db } from "@/app/firebase/config"
+// import { db } from "@/app/firebase/config";
 import { Language, Meaning, Word } from "@/types/word"
 import { doc, getDoc, setDoc } from "firebase/firestore"
 
@@ -60,7 +60,7 @@ async function createTranslation(untranslatedWord: string): Promise<Word> {
             translation: z
               .string()
               .describe(
-                "A succinct, short, natural English translation of the word with no unnecessary punctuation."
+                "A succinct, short, natural English translation of the word with no unnecessary punctuation.",
               ),
             pos: z
               .enum(PARTS_OF_SPEECH)
@@ -74,13 +74,13 @@ async function createTranslation(untranslatedWord: string): Promise<Word> {
             slang: z
               .boolean()
               .describe(
-                "Indicates whether this meaning is considered slang in everyday usage."
+                "Indicates whether this meaning is considered slang in everyday usage.",
               ),
           })
           .nullable()
           .describe(
-            "Set to null only if the word is not a valid Brazilian Portuguese word."
-          )
+            "Set to null only if the word is not a valid Brazilian Portuguese word.",
+          ),
       )
       .max(2, "A limit of 2 distinct words."),
     language: z.enum(LANGUAGES).describe("Which language the word belongs to."),
@@ -146,7 +146,7 @@ async function createTranslation(untranslatedWord: string): Promise<Word> {
 }
 
 async function getTranslationFromCache(
-  untranslatedWord: string
+  untranslatedWord: string,
 ): Promise<Word | null> {
   for (const lang of LANGUAGES) {
     const docRef = doc(db, lang, untranslatedWord)

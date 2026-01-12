@@ -20,14 +20,14 @@ export default function WordCard({
     queryKey: ["wordTranslation", word],
     queryFn: () => fetchWordTranslation(word),
     staleTime: 1000 * 60 * 5,
-  });
+  })
 
   useEffect(() => {
     if (data?.data) {
       setMetadata(data.data);
       console.log(data.data);
     }
-  }, [data]);
+  }, [data, setClickedWords, cleanedWord])
 
   function removeWord() {
     setClickedWords((prev) => {
@@ -42,25 +42,25 @@ export default function WordCard({
 
   const gender = firstMeaning?.gender;
 
-  let genderBadge = null;
+  let genderBadge = null
   if (gender === "male") {
     genderBadge = (
       <Badge className="bg-blue-400">
         <Mars />
       </Badge>
-    );
+    )
   } else if (gender === "female") {
     genderBadge = (
       <Badge className="bg-pink-400">
         <Venus />
       </Badge>
-    );
+    )
   } else if (gender) {
     genderBadge = (
       <Badge className="bg-purple-400">
         <Mars /> & <Venus />
       </Badge>
-    );
+    )
   }
 
   let slangBadge = null;
@@ -88,7 +88,7 @@ export default function WordCard({
         {slangBadge}
       </div>
     </div>
-  );
+  )
 }
 
 async function fetchWordTranslation(word: string) {
@@ -96,13 +96,13 @@ async function fetchWordTranslation(word: string) {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ word: word }),
-  });
+  })
 
-  if (!result.ok) throw new Error("Failed to translate.");
+  if (!result.ok) throw new Error("Failed to translate.")
 
-  return result.json();
+  return result.json()
 }
 
 function toLowerAndStripPunctuation(str: string) {
-  return str.replace(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g, "").toLowerCase();
+  return str.replace(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g, "").toLowerCase()
 }

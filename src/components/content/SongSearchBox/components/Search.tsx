@@ -23,30 +23,30 @@ export default function SearchBox({
   setUserInput: Setter<string>;
 }) {
   const handleSubmit = useCallback(async () => {
-    setLoading(true);
+    setLoading(true)
 
     const res = await fetch("/api/search", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ search: userInput }),
-    });
+    })
 
-    const data = await res.json();
-    setSongInfo(data.songs);
-    setLoading(false);
-  }, [userInput, setLoading, setSongInfo]);
+    const data = await res.json()
+    setSongInfo(data.songs)
+    setLoading(false)
+  }, [userInput, setLoading, setSongInfo])
 
-  useSearchDelay(userInput, handleSubmit, setSongInfo);
+  useSearchDelay(userInput, handleSubmit, setSongInfo)
 
-  const resetSelection: Selection = { song: undefined, hasSelected: false };
+  const resetSelection: Selection = { song: undefined, hasSelected: false }
 
   return (
     <div className="space-y-4 self-center">
       <form
         onSubmit={(event) => {
-          event.preventDefault();
-          setUserSelection(resetSelection);
-          handleSubmit();
+          event.preventDefault()
+          setUserSelection(resetSelection)
+          handleSubmit()
         }}
         className="flex gap-1"
       >
@@ -55,9 +55,9 @@ export default function SearchBox({
           placeholder={PLACEHOLDER}
           className="bg-card"
           onChange={(event) => {
-            setUserInput(event.target.value);
-            setUserSelection(resetSelection);
-            setLoading(true);
+            setUserInput(event.target.value)
+            setUserSelection(resetSelection)
+            setLoading(true)
           }}
         />
         <Button type="submit" size="icon" color="primary">
@@ -65,7 +65,7 @@ export default function SearchBox({
         </Button>
       </form>
     </div>
-  );
+  )
 }
 
 function useSearchDelay(
@@ -75,13 +75,13 @@ function useSearchDelay(
 ) {
   useEffect(() => {
     if (!userInput.trim()) {
-      setSongInfo([]);
-      return;
+      setSongInfo([])
+      return
     }
 
     const timer = setTimeout(() => {
-      handleSubmit();
-    }, SEARCH_DEBOUNCE_DELAY);
-    return () => clearTimeout(timer);
-  }, [userInput]);
+      handleSubmit()
+    }, SEARCH_DEBOUNCE_DELAY)
+    return () => clearTimeout(timer)
+  }, [userInput])
 }

@@ -5,8 +5,8 @@ export default function VocabWordsBox({
   clickedWords,
   setClickedWords,
 }: {
-  clickedWords: Set<string>;
-  setClickedWords: Setter<Set<string>>;
+  clickedWords: Map<string, Word>
+  setClickedWords: Setter<Map<string, Word>>
 }) {
   return (
     <>
@@ -43,5 +43,5 @@ export default function VocabWordsBox({
         </div>
       )}
     </>
-  );
+  )
 }

@@ -8,5 +8,5 @@ export default function MetadataSkeleton({ word }: { word: string }) {
         <p className="bg-accent text-transparent w-fit rounded-md">badge</p>
       </div>
     </div>
-  );
+  )
 }

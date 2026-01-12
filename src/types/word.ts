@@ -12,7 +12,7 @@ export type Meaning = {
   slang: boolean
 }
 
-type POS = 
+type POS =
   | "noun"
   | "verb"
   | "article"
@@ -26,4 +26,4 @@ type POS =
   | "numeral"
   | "proper noun"
 
-  export type Language = "portuguese" | "english" | "other"
+export type Language = "portuguese" | "english" | "other"
