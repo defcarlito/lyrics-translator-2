@@ -1,11 +1,21 @@
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import { Setter } from "@/types/setter";
-import { Word } from "@/types/word";
-import { useQuery } from "@tanstack/react-query";
-import { Mars, Venus, X } from "lucide-react";
-import { useEffect, useState } from "react";
-import MetadataSkeleton from "./components/MetadataSkeleton";
+import { Badge } from "@/components/ui/badge"
+import { Button } from "@/components/ui/button"
+import { Setter } from "@/types/setter"
+import { Word } from "@/types/word"
+import { useQuery } from "@tanstack/react-query"
+import { Mars, Venus, X } from "lucide-react"
+import { useEffect, useState } from "react"
+import MetadataSkeleton from "./components/MetadataSkeleton"
+import { SquareArrowOutUpRight } from "lucide-react"
+import {
+  Select,
+  SelectItem,
+  SelectContent,
+  SelectTrigger,
+  SelectValue,
+  SelectGroup,
+} from "@/components/ui/select"
+import { cn } from "@/lib/utils"
 
 export default function WordCard({
   word,
@@ -15,7 +25,7 @@ export default function WordCard({
   clickedWords: Map<string, Word>
   setClickedWords: Setter<Map<string, Word>>
 }) {
-  const [metadata, setMetadata] = useState<Word | undefined>(undefined);
+  const [metadata, setMetadata] = useState<Word | undefined>(undefined)
 
   const { data, isLoading, error } = useQuery({
     queryKey: ["wordTranslation", word],

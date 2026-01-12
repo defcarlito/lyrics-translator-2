@@ -1,13 +1,13 @@
-import { Button } from "@/components/ui/button";
-import { Input } from "@/components/ui/input";
-import { Setter } from "@/types/setter";
-import { Song } from "@/types/song";
-import { Selection } from "@/types/userChoice";
-import { Search } from "lucide-react";
-import { useCallback, useEffect, useMemo, useState } from "react";
+import { Button } from "@/components/ui/button"
+import { Input } from "@/components/ui/input"
+import { Setter } from "@/types/setter"
+import { Song } from "@/types/song"
+import { Selection } from "@/types/userChoice"
+import { Search } from "lucide-react"
+import { useCallback, useEffect, useMemo, useState } from "react"
 
-const PLACEHOLDER: string = "ex. País do Futebol by MC Guimê";
-const SEARCH_DEBOUNCE_DELAY: number = 400; // milliseconds
+const PLACEHOLDER: string = "ex. País do Futebol by MC Guimê"
+const SEARCH_DEBOUNCE_DELAY: number = 400 // milliseconds
 
 export default function SearchBox({
   setSongInfo,
@@ -16,11 +16,11 @@ export default function SearchBox({
   userInput,
   setUserInput,
 }: {
-  setSongInfo: Setter<Song[]>;
-  setLoading: Setter<boolean>;
-  setUserSelection: Setter<Selection>;
-  userInput: string;
-  setUserInput: Setter<string>;
+  setSongInfo: Setter<Song[]>
+  setLoading: Setter<boolean>
+  setUserSelection: Setter<Selection>
+  userInput: string
+  setUserInput: Setter<string>
 }) {
   const handleSubmit = useCallback(async () => {
     setLoading(true)

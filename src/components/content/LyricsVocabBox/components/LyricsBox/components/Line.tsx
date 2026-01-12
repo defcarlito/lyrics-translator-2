@@ -60,5 +60,9 @@ const Word = ({
     >
       {word}
     </span>
-  );
-};
+  )
+}
+
+function toLowerAndStripPunctuation(str: string) {
+  return str.replace(/[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]/g, "").toLowerCase()
+}

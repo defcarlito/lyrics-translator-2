@@ -1,9 +1,9 @@
-import { Selection } from "@/types/userChoice";
-import { useState } from "react";
-import LyricsBox from "./components/LyricsBox/LyricsBox";
-import VocabWordsBox from "./components/VocabWordsBox/VocabWordsBox";
-import Export from "./components/Export";
-import { Word } from "@/types/word";
+import { Selection } from "@/types/userChoice"
+import { useState } from "react"
+import LyricsBox from "./components/LyricsBox/LyricsBox"
+import VocabWordsBox from "./components/VocabWordsBox/VocabWordsBox"
+import Export from "./components/Export"
+import { Word } from "@/types/word"
 
 export default function LyricsVocabBox({
   userSelection,

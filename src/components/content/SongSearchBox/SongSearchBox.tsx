@@ -10,14 +10,14 @@ export default function SongSearchBox({
   userSelection,
   setUserSelection,
 }: {
-  userSelection: Selection;
-  setUserSelection: Setter<Selection>;
+  userSelection: Selection
+  setUserSelection: Setter<Selection>
 }) {
-  const [songInfo, setSongInfo] = useState<Song[]>([]);
-  const [loading, setLoading] = useState<boolean>(false);
-  const [userInput, setUserInput] = useState<string>("");
+  const [songInfo, setSongInfo] = useState<Song[]>([])
+  const [loading, setLoading] = useState<boolean>(false)
+  const [userInput, setUserInput] = useState<string>("")
 
-  const isSearchEmpty = () => userInput.length === 0;
+  const isSearchEmpty = () => userInput.length === 0
 
   return (
     <div className="space-y-2 relative">

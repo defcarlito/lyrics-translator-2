@@ -1,8 +1,9 @@
-import { Lyrics } from "@/types/lyrics";
-import { Setter } from "@/types/setter";
-import { Selection } from "@/types/userChoice";
-import { useEffect, useState } from "react";
-import Line from "./components/Line";
+import { Lyrics } from "@/types/lyrics"
+import { Setter } from "@/types/setter"
+import { Selection } from "@/types/userChoice"
+import { useEffect, useState } from "react"
+import Line from "./components/Line"
+import { Word } from "@/types/word"
 
 export default function LyricsBox({
   userSelection,
@@ -13,8 +14,8 @@ export default function LyricsBox({
   clickedWords: Map<string, Word>
   setClickedWords: Setter<Map<string, Word>>
 }) {
-  const lyrics: Lyrics = useGetSongLyrics(userSelection);
-  const lyricsByLine = lyrics.byLine;
+  const lyrics: Lyrics = useGetSongLyrics(userSelection)
+  const lyricsByLine = lyrics.byLine
 
   return (
     <div className="bg-card border rounded-md p-4 w-sm md:w-md space-y-4 overflow-scroll h-[50vh] lg:h-[75vh]">

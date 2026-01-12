@@ -6,7 +6,7 @@ export default function Export({
   clickedWords: Map<string, Word>
 }) {
   function exportWords() {
-    console.log(clickedWords);
+    console.log("clicked words:", clickedWords)
   }
   return (
     <div className="border p-4 rounded-sm flex flex-col gap-2">
