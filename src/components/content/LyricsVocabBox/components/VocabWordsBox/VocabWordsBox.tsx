@@ -37,7 +37,6 @@ export default function VocabWordsBox({
           {Array.from(clickedWords.values()).map((word, index) => (
             <WordCard
               word={word.word}
-              clickedWords={clickedWords}
               setClickedWords={setClickedWords}
               key={index}
             />

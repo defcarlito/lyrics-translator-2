@@ -19,11 +19,9 @@ import { cn } from "@/lib/utils"
 
 export default function WordCard({
   word,
-  clickedWords,
   setClickedWords,
 }: {
   word: string
-  clickedWords: Map<string, Word>
   setClickedWords: Setter<Map<string, Word>>
 }) {
   const [metadata, setMetadata] = useState<Word | undefined>(undefined)

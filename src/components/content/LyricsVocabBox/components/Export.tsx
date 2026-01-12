@@ -4,7 +4,6 @@ import {
   Dialog,
   DialogClose,
   DialogContent,
-  DialogDescription,
   DialogFooter,
   DialogHeader,
   DialogTitle,
@@ -49,7 +48,7 @@ export default function Export({
     try {
       await navigator.clipboard.writeText(text)
       return toast.success("Copied content to clipboard.")
-    } catch (err) {
+    } catch {
       return toast.error("Error copying content.")
     }
   }
