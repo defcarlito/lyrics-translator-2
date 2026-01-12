@@ -19,6 +19,7 @@ import { cn } from "@/lib/utils"
 
 export default function WordCard({
   word,
+  clickedWords,
   setClickedWords,
 }: {
   word: string
@@ -27,7 +28,9 @@ export default function WordCard({
 }) {
   const [metadata, setMetadata] = useState<Word | undefined>(undefined)
 
-  const { data, isLoading, error } = useQuery({
+  const cleanedWord = toLowerAndStripPunctuation(word)
+
+  const { data, isLoading } = useQuery({
     queryKey: ["wordTranslation", word],
     queryFn: () => fetchWordTranslation(word),
     staleTime: 1000 * 60 * 5,
@@ -57,27 +60,24 @@ export default function WordCard({
     })
   }
 
-  const cleanedWord = toLowerAndStripPunctuation(word);
-  const firstMeaning = metadata?.meanings.at(0);
-
-  const gender = firstMeaning?.gender;
+  const gender = metadata?.meanings.at(metadata.selectedMeaningIndex)?.gender
 
   let genderBadge = null
   if (gender === "male") {
     genderBadge = (
-      <Badge className="bg-blue-400">
+      <Badge className="bg-blue-200 text-black">
         <Mars />
       </Badge>
     )
   } else if (gender === "female") {
     genderBadge = (
-      <Badge className="bg-pink-400">
+      <Badge className="bg-pink-200 text-black">
         <Venus />
       </Badge>
     )
   } else if (gender) {
     genderBadge = (
-      <Badge className="bg-purple-400">
+      <Badge className="bg-purple-200 text-black">
         <Mars /> & <Venus />
       </Badge>
     )
@@ -111,22 +111,81 @@ export default function WordCard({
   return isLoading ? (
     <MetadataSkeleton word={cleanedWord} />
   ) : (
-    <div className="flex flex-col bg-card p-4 border rounded-sm gap-1 items-center relative">
-      <Button
-        className="absolute top-[-8] right-[-8] rounded-full w-6 h-6 bg-red-500/80 hover:bg-red-500"
-        size="icon"
-        onClick={removeWord}
-      >
-        <X />
-      </Button>
-      <h1>{toLowerAndStripPunctuation(word)}</h1>
-      <p className="text-center">
-        &quot;{metadata?.meanings.at(0)?.translation}&quot;
-      </p>
-      <div className="flex gap-1">
-        {genderBadge}
-        {slangBadge}
+    <div className="flex flex-col bg-card p-2 border rounded-sm gap-2 items-center relative justify-between">
+      <div className="w-full space-y-2">
+        <Button
+          className="absolute top-[-8] right-[-8] rounded-lg w-6 h-6 bg-red-200 hover:bg-red-500"
+          size="icon"
+          onClick={removeWord}
+        >
+          <X />
+        </Button>
+        <div className="border-b-1 w-full flex">
+          <h1
+            className={cn(
+              metadata?.language !== "portuguese" && "text-red-500",
+            )}
+          >
+            <i>{cleanedWord} </i>
+          </h1>
+          {metadata?.meanings.at(metadata.selectedMeaningIndex)?.pos ===
+            "verb" && (
+            <p className="flex gap-2 items-center">
+              <> &nbsp; - </>
+              <a
+                href={`https://conjugator.reverso.net/conjugation-portuguese-verb-${metadata.meanings?.at(metadata.selectedMeaningIndex)?.infinitive}.html`}
+                target="_blank"
+                className="underline text-blue-600"
+              >
+                {
+                  metadata.meanings.at(metadata.selectedMeaningIndex)
+                    ?.infinitive
+                }
+              </a>{" "}
+              <SquareArrowOutUpRight className="w-3 h-3" />
+            </p>
+          )}
+        </div>
+        <p className="text-center">
+          {metadata?.language === "portuguese" ? (
+            <>
+              &quot;
+              {
+                metadata?.meanings.at(metadata.selectedMeaningIndex)
+                  ?.translation
+              }
+              &quot;
+            </>
+          ) : (
+            <>Not Portuguese!</>
+          )}
+        </p>
       </div>
+      {metadata?.language === "portuguese" && (
+        <div className="flex flex-wrap gap-1 justify-center">
+          <Select
+            value={metadata?.selectedMeaningIndex.toString()}
+            onValueChange={(value) => updateSelectedMeaning(parseInt(value))}
+          >
+            <SelectTrigger className="border-none shadow-none bg-black pr-1">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectGroup>
+                {metadata?.meanings.map((value, index) => (
+                  <SelectItem value={index.toString()} key={index}>
+                    <Badge>
+                      ({index + 1}) {value.pos}
+                    </Badge>
+                  </SelectItem>
+                ))}
+              </SelectGroup>
+            </SelectContent>
+          </Select>
+          {genderBadge}
+          {slangBadge}
+        </div>
+      )}
     </div>
   )
 }
