@@ -53,6 +53,7 @@ export default function SearchBox({
         <Input
           name="search"
           placeholder={PLACEHOLDER}
+          autoComplete="off"
           className="bg-card"
           onChange={(event) => {
             setUserInput(event.target.value)
