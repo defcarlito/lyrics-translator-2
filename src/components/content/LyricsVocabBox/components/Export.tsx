@@ -66,7 +66,7 @@ export default function Export({
           <div className="flex flex-col gap-6">
             <div>
               <h1 className="text-lg font-semibold">
-                Instructions for getting your collection into Quizlet
+                Instructions for exporting your collection to Quizlet
               </h1>
               <ol className="list-decimal list-inside">
                 <li>
@@ -78,10 +78,10 @@ export default function Export({
                   >
                     this
                   </a>{" "}
-                  page on Quizlet.com.
+                  page to create a flashcard set on Quizlet.
                 </li>
                 <li>Select &quot;Import&quot;.</li>
-                <li>Paste your content into the text box.</li>
+                <li>Paste your content (from below) into the text box.</li>
                 <li>
                   Select &quot;Comma&quot; for the &quot;Between term and
                   definition&quot; option and &quot;Semicolon&quot; for the
