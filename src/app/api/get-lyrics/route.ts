@@ -1,16 +1,16 @@
 import { Song } from "@/types/song"
-import Genius from "genius-lyrics"
+import { Client } from "genius-lyrics"
 import { NextRequest, NextResponse } from "next/server"
 
 const REMOVE_CHORUS = true
 
 export async function POST(request: NextRequest) {
-  const Client = new Genius.Client(process.env.GENIUS_ACCESS_TOKEN)
+  const client = new Client(process.env.GENIUS_ACCESS_TOKEN)
 
   const body = await request.json()
   const song: Song = body.song
 
-  const searches = await Client.songs.search(`${song.title} by ${song.artist}`)
+  const searches = await client.songs.search(`${song.title} by ${song.artist}`)
   const topSearchLyrics: string = await searches[0].lyrics(REMOVE_CHORUS)
 
   const lyricsByLine = topSearchLyrics.split("\n")
