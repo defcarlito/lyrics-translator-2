@@ -1,3 +1,5 @@
+export const runtime = "nodejs"
+
 import { Song } from "@/types/song"
 import { Client } from "genius-lyrics"
 import { NextRequest, NextResponse } from "next/server"
