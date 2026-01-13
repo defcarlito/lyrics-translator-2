@@ -15,8 +15,9 @@ const geistMono = Geist_Mono({
 })
 
 export const metadata: Metadata = {
-  title: "Lyric Translator",
-  description: "Lyric translator.",
+  title: "Lyric Linguist",
+  description:
+    "Search for a song with Portuguese lyrics and quickly turn unfamiliar words into a Quizlet vocaulary set to study later.",
 }
 
 export default function RootLayout({
