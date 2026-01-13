@@ -52,7 +52,7 @@ export async function POST(request: NextRequest) {
       const allFeaturedArtists: Artist[] = songInfo.featured_artists
       const allFeaturedArtistsNames: string[] = allFeaturedArtists.map(
         (artist: Artist) => {
-          console.log(artist)
+          // console.log(artist)
           return artist.name
         },
       )
