@@ -38,14 +38,14 @@ Also, translations are done via AI then cached for future use. So, translations 
 ## Examples
 
 <p align="center">
-  <img src="examples/collection-ex.mp4" alt="Building a collection demo" />
+  <img src="examples/collection-ex.gif" alt="Building a collection demo" />
   <br />
   <em>Building a collection.</em>
 </p>
 <br />
 
 <p align="center">
-  <img src="examples/exporting-ex.mp4" alt="Exporting a collection to Quizlet demo" />
+  <img src="examples/exporting-ex.gif" alt="Exporting a collection to Quizlet demo" />
   <br />
   <em>Exporting a collection to Quizlet.</em>
 </p>
