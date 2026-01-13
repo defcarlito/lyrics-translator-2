@@ -1,8 +1,8 @@
-<!--## Try it
+## Try it
 
 Live: [here](https://lyrics-translator-chi.vercel.app/)
 
-Try searching for "País do Futebol" by MC Guimê or any Portuguese song you know. Accents aren't necessary in your search.-->
+Try searching for "País do Futebol" by MC Guimê or any Portuguese song you know. Character accents aren't necessary in your search.
 
 ## Overview
 
